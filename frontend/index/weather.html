@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สภาพอากาศ - Smart Rice AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/weather.css">
+</head>
+
+<body>
+    <!-- Top Header (Black in sketch) -->
+    <header class="top-header">
+        <div class="header-logo">
+            <i class="fa-solid fa-leaf"></i> <span>Smart Rice AI</span>
+        </div>
+        <!-- Additional Menu (Yellow in sketch) -->
+        <button class="menu-btn" title="เมนูเพิ่มเติม">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay & Menu -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-bars"></i> เมนูเพิ่มเติม</h3>
+            <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="../frontend/user/user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
+            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
+            <a href="../user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i>
+                ออกจากระบบ</a>
+        </nav>
+    </aside>
+
+    <!-- สีเขียว (กรอบนอก) : Main Content -->
+    <main class="dashboard-container weather-page-container">
+
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> กลับไปหน้าแรก</a>
+
+        <h2 class="section-title text-white"><i class="fa-solid fa-cloud-sun"></i> รายละเอียดสภาพอากาศ</h2>
+
+        <!-- สีแดง (กรอบ 1) : อุณหภูมิแต่ละช่วงเวลา -->
+        <section class="weather-card glass-panel hourly-weather">
+            <div class="box-header">
+                <h3><i class="fa-regular fa-clock"></i> อุณหภูมิแต่ละช่วงเวลา (วันนี้)</h3>
+            </div>
+            <div class="hourly-scroll">
+                <div class="hourly-item">
+                    <span class="time">08:00</span>
+                    <i class="fa-solid fa-cloud-sun icon-weather"></i>
+                    <span class="temp">28°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">10:00</span>
+                    <i class="fa-solid fa-sun icon-weather highlight-sun"></i>
+                    <span class="temp">31°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">12:00</span>
+                    <i class="fa-solid fa-sun icon-weather highlight-sun"></i>
+                    <span class="temp">34°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">14:00</span>
+                    <i class="fa-solid fa-cloud icon-weather"></i>
+                    <span class="temp">33°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">16:00</span>
+                    <i class="fa-solid fa-cloud-showers-heavy icon-weather highlight-rain"></i>
+                    <span class="temp">30°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">18:00</span>
+                    <i class="fa-solid fa-cloud-rain icon-weather highlight-rain"></i>
+                    <span class="temp">27°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">20:00</span>
+                    <i class="fa-solid fa-moon icon-weather"></i>
+                    <span class="temp">26°C</span>
+                </div>
+                <div class="hourly-item">
+                    <span class="time">22:00</span>
+                    <i class="fa-solid fa-moon icon-weather"></i>
+                    <span class="temp">25°C</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- สีแดง (กรอบ 2) : สภาพอากาศตามที่อยู่ปัจจุบันของคนที่ลงทะเบียนแล้ว -->
+        <section class="weather-card glass-panel current-location-weather">
+            <div class="box-header">
+                <h3><i class="fa-solid fa-location-dot"></i> สภาพอากาศตามที่อยู่ปัจจุบันของคุณ</h3>
+                <span class="location-badge">อ.คลองหลวง, จ.ปทุมธานี</span>
+            </div>
+
+            <div class="current-weather-content">
+                <div class="main-temp-display">
+                    <i class="fa-solid fa-cloud-sun-rain display-icon float-anim"></i>
+                    <div class="temp-text">
+                        <span class="large-temp">32°C</span>
+                        <span class="desc">ฝนตกเล็กน้อยสลับแดดออก</span>
+                    </div>
+                </div>
+
+                <div class="weather-metrics">
+                    <div class="metric-card">
+                        <i class="fa-solid fa-droplet"></i>
+                        <span class="label">ความชื้นสัมพัทธ์</span>
+                        <span class="value">75%</span>
+                        <span class="status warning">สูง</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fa-solid fa-wind"></i>
+                        <span class="label">ความเร็วลม</span>
+                        <span class="value">12 กม./ชม.</span>
+                        <span class="status good">ปกติ</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fa-solid fa-umbrella"></i>
+                        <span class="label">โอกาสเกิดฝน</span>
+                        <span class="value">60%</span>
+                        <span class="status warning">ปานกลาง</span>
+                    </div>
+                </div>
+
+                <div class="ai-insight">
+                    <h4><i class="fa-solid fa-robot"></i> คำแนะนำจาก Smart Rice AI</h4>
+                    <p>สภาพอากาศมีความชื้นและฝนตกปรอยๆ ในช่วงบ่าย
+                        <strong>ไม่แนะนำ</strong>ให้ฉีดพ่นปุ๋ยทางใบหรือสารเคมีในวันนี้ เนื่องจากอาจถูกน้ำฝนชะล้าง
+                        ควรเลื่อนเป็นช่วงเช้าของวันพรุ่งนี้แทน
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- สีฟ้า : Chatbot แบบ index.html -->
+    <div class="chatbot-fab" id="chatbotBtn">
+        <i class="fa-solid fa-comment-dots"></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window glass-card" id="chatbotWindow">
+        <div class="chat-header">
+            <h3><i class="fa-solid fa-robot"></i> ผู้ช่วยฟาร์มอัจฉริยะ (AI)</h3>
+            <button id="closeChat"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                สวัสดีครับ! 🌾 หากต้องการสอบถามว่าสภาพอากาศวันนี้เหมาะกับการทำกิจกรรมใดในแปลงนา พิมพ์ถามผมได้เลยครับ
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="พิมพ์คำถามของคุณที่นี่...">
+            <button id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/app.js"></script>
+</body>
+
+</html>
