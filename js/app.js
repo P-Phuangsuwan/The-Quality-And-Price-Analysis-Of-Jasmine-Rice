@@ -47,8 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingId = 'loading-' + Date.now();
         appendMessage("กำลังคิด...", 'ai-message', loadingId);
 
+        // Determine the API base URL depending on the environment
+        // หากอัปโหลดขึ้นเว็บจริง (Production) ให้เปลี่ยน 'https://your-backend-domain.com' เป็น URL ของ Backend ของคุณ
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const API_BASE_URL = isLocal ? 'http://localhost:3000' : 'https://your-backend-domain.com'; // <--- เปลี่ยนตรงนี้ถ้า Backend อยู่คนละที่
+
         // Call Backend API
-        fetch('http://localhost:3000/api/chat', {
+        fetch(`${API_BASE_URL}/api/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
