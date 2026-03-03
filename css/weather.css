@@ -250,6 +250,7 @@ body {
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background: -webkit-linear-gradient(#fff, #f0f0f0);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
