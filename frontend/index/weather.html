@@ -54,46 +54,9 @@
             <div class="box-header">
                 <h3><i class="fa-regular fa-clock"></i> อุณหภูมิแต่ละช่วงเวลา (วันนี้)</h3>
             </div>
-            <div class="hourly-scroll">
-                <div class="hourly-item">
-                    <span class="time">08:00</span>
-                    <i class="fa-solid fa-cloud-sun icon-weather"></i>
-                    <span class="temp">28°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">10:00</span>
-                    <i class="fa-solid fa-sun icon-weather highlight-sun"></i>
-                    <span class="temp">31°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">12:00</span>
-                    <i class="fa-solid fa-sun icon-weather highlight-sun"></i>
-                    <span class="temp">34°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">14:00</span>
-                    <i class="fa-solid fa-cloud icon-weather"></i>
-                    <span class="temp">33°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">16:00</span>
-                    <i class="fa-solid fa-cloud-showers-heavy icon-weather highlight-rain"></i>
-                    <span class="temp">30°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">18:00</span>
-                    <i class="fa-solid fa-cloud-rain icon-weather highlight-rain"></i>
-                    <span class="temp">27°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">20:00</span>
-                    <i class="fa-solid fa-moon icon-weather"></i>
-                    <span class="temp">26°C</span>
-                </div>
-                <div class="hourly-item">
-                    <span class="time">22:00</span>
-                    <i class="fa-solid fa-moon icon-weather"></i>
-                    <span class="temp">25°C</span>
+            <div class="hourly-scroll" id="hourlyWeatherContainer">
+                <div style="padding: 20px; text-align: center; width: 100%; color: var(--text-muted);">
+                    <i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดข้อมูล...
                 </div>
             </div>
         </section>
@@ -102,15 +65,15 @@
         <section class="weather-card glass-panel current-location-weather">
             <div class="box-header">
                 <h3><i class="fa-solid fa-location-dot"></i> สภาพอากาศตามที่อยู่ปัจจุบันของคุณ</h3>
-                <span class="location-badge">อ.คลองหลวง, จ.ปทุมธานี</span>
+                <span class="location-badge" id="locationBadge">กำลังค้นหาตำแหน่ง...</span>
             </div>
 
             <div class="current-weather-content">
                 <div class="main-temp-display">
-                    <i class="fa-solid fa-cloud-sun-rain display-icon float-anim"></i>
+                    <i id="currentIcon" class="fa-solid fa-cloud display-icon float-anim"></i>
                     <div class="temp-text">
-                        <span class="large-temp">32°C</span>
-                        <span class="desc">ฝนตกเล็กน้อยสลับแดดออก</span>
+                        <span class="large-temp" id="currentTemp">--°C</span>
+                        <span class="desc" id="currentDesc">กำลังโหลด...</span>
                     </div>
                 </div>
 
@@ -118,29 +81,26 @@
                     <div class="metric-card">
                         <i class="fa-solid fa-droplet"></i>
                         <span class="label">ความชื้นสัมพัทธ์</span>
-                        <span class="value">75%</span>
-                        <span class="status warning">สูง</span>
+                        <span class="value" id="currentHumidity">--%</span>
+                        <span class="status" id="humidityStatus">--</span>
                     </div>
                     <div class="metric-card">
                         <i class="fa-solid fa-wind"></i>
                         <span class="label">ความเร็วลม</span>
-                        <span class="value">12 กม./ชม.</span>
-                        <span class="status good">ปกติ</span>
+                        <span class="value" id="currentWind">-- กม./ชม.</span>
+                        <span class="status" id="windStatus">--</span>
                     </div>
                     <div class="metric-card">
                         <i class="fa-solid fa-umbrella"></i>
-                        <span class="label">โอกาสเกิดฝน</span>
-                        <span class="value">60%</span>
-                        <span class="status warning">ปานกลาง</span>
+                        <span class="label">โอกาสเกิดฝน (วันนี้)</span>
+                        <span class="value" id="currentRainProb">--%</span>
+                        <span class="status" id="rainStatus">--</span>
                     </div>
                 </div>
 
                 <div class="ai-insight">
                     <h4><i class="fa-solid fa-robot"></i> คำแนะนำจาก Smart Rice AI</h4>
-                    <p>สภาพอากาศมีความชื้นและฝนตกปรอยๆ ในช่วงบ่าย
-                        <strong>ไม่แนะนำ</strong>ให้ฉีดพ่นปุ๋ยทางใบหรือสารเคมีในวันนี้ เนื่องจากอาจถูกน้ำฝนชะล้าง
-                        ควรเลื่อนเป็นช่วงเช้าของวันพรุ่งนี้แทน
-                    </p>
+                    <p id="aiInsightText">กำลังวิเคราะห์สภาพอากาศ...</p>
                 </div>
             </div>
         </section>
@@ -171,6 +131,184 @@
 
     <!-- Scripts -->
     <script src="../../js/app.js"></script>
+    <script>
+        const weatherIcons = {
+            0: { icon: 'fa-sun highlight-sun', desc: 'ท้องฟ้าแจ่มใส' },
+            1: { icon: 'fa-sun highlight-sun', desc: 'มีเมฆบางส่วน' },
+            2: { icon: 'fa-cloud-sun', desc: 'มีเมฆเป็นส่วนมาก' },
+            3: { icon: 'fa-cloud', desc: 'มีเมฆมาก' },
+            45: { icon: 'fa-smog', desc: 'มีหมอก' },
+            48: { icon: 'fa-smog', desc: 'มีหมอกจัด' },
+            51: { icon: 'fa-cloud-rain highlight-rain', desc: 'ฝนปรอยๆ เบาบาง' },
+            53: { icon: 'fa-cloud-rain highlight-rain', desc: 'ฝนปรอยๆ ปานกลาง' },
+            55: { icon: 'fa-cloud-showers-heavy highlight-rain', desc: 'ฝนปรอยๆ หนัก' },
+            61: { icon: 'fa-cloud-rain highlight-rain', desc: 'ฝนตกเล็กน้อย' },
+            63: { icon: 'fa-cloud-rain highlight-rain', desc: 'ฝนตกปานกลาง' },
+            65: { icon: 'fa-cloud-showers-heavy highlight-rain', desc: 'ฝนตกหนัก' },
+            80: { icon: 'fa-cloud-rain highlight-rain', desc: 'ฝนตกเป็นหย่อมๆ' },
+            81: { icon: 'fa-cloud-showers-heavy highlight-rain', desc: 'ฝนตกหนักเป็นหย่อมๆ' },
+            82: { icon: 'fa-cloud-showers-heavy highlight-rain', desc: 'ฝนตกหนักมาก' },
+            95: { icon: 'fa-cloud-bolt highlight-rain', desc: 'พายุฝนฟ้าคะนอง' },
+            96: { icon: 'fa-cloud-bolt highlight-rain', desc: 'พายุลูกเห็บตก' },
+            99: { icon: 'fa-cloud-bolt highlight-rain', desc: 'พายุลูกเห็บตกหนัก' }
+        };
+
+        function getWeatherDetails(code) {
+            return weatherIcons[code] || { icon: 'fa-cloud', desc: 'สภาพอากาศแปรปรวน (' + code + ')' };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Geolocation fetch
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        fetchWeather(position.coords.latitude, position.coords.longitude);
+                        fetchLocationName(position.coords.latitude, position.coords.longitude);
+                    },
+                    (error) => {
+                        console.warn("Geolocation denied or error, defaulting to Bangkok");
+                        fetchWeather(13.754, 100.5014); // Default BKK
+                        document.getElementById('locationBadge').textContent = 'กรุงเทพมหานคร (ค่าเริ่มต้น)';
+                    }
+                );
+            } else {
+                fetchWeather(13.754, 100.5014);
+                document.getElementById('locationBadge').textContent = 'กรุงเทพมหานคร (ค่าเริ่มต้น)';
+            }
+        });
+
+        async function fetchLocationName(lat, lon) {
+            try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&accept-language=th`);
+                const data = await res.json();
+                let name = data.address?.city || data.address?.province || data.address?.state || 'พิกัดปัจจุบัน';
+                if (name.includes('จังหวัด')) name = name.replace('จังหวัด', 'จ.');
+                // Add district if available
+                let district = data.address?.county || '';
+                if (district.includes('อำเภอ')) district = district.replace('อำเภอ', 'อ.');
+                if (district) name = district + ', ' + name;
+
+                document.getElementById('locationBadge').textContent = name;
+            } catch (e) {
+                document.getElementById('locationBadge').textContent = 'พิกัดปัจจุบัน';
+            }
+        }
+
+        async function fetchWeather(lat, lon) {
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&timezone=auto&forecast_days=1`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const current = data.current;
+                const currentDetails = getWeatherDetails(current.weather_code);
+
+                // --- UPDATE CURRENT ---
+                document.getElementById('currentTemp').textContent = Math.round(current.temperature_2m) + '°C';
+                document.getElementById('currentDesc').textContent = currentDetails.desc;
+                document.getElementById('currentIcon').className = `fa-solid ${currentDetails.icon} display-icon float-anim`;
+
+                // Humidity
+                document.getElementById('currentHumidity').textContent = current.relative_humidity_2m + '%';
+                const humStatusObj = document.getElementById('humidityStatus');
+                if (current.relative_humidity_2m > 70) {
+                    humStatusObj.textContent = 'สูง';
+                    humStatusObj.className = 'status warning';
+                } else if (current.relative_humidity_2m < 30) {
+                    humStatusObj.textContent = 'ต่ำ';
+                    humStatusObj.className = 'status warning';
+                } else {
+                    humStatusObj.textContent = 'ปกติ';
+                    humStatusObj.className = 'status good';
+                }
+
+                // Wind
+                document.getElementById('currentWind').textContent = Math.round(current.wind_speed_10m) + ' กม./ชม.';
+                const windStatusObj = document.getElementById('windStatus');
+                if (current.wind_speed_10m > 20) {
+                    windStatusObj.textContent = 'แรง';
+                    windStatusObj.className = 'status warning';
+                } else {
+                    windStatusObj.textContent = 'ปกติ';
+                    windStatusObj.className = 'status good';
+                }
+
+                // Rain Probability
+                const hourly = data.hourly;
+                const now = new Date();
+                const currentHour = now.getHours();
+
+                const maxRainProb = Math.max(...hourly.precipitation_probability);
+                document.getElementById('currentRainProb').textContent = maxRainProb + '%';
+                const rainStatusObj = document.getElementById('rainStatus');
+                if (maxRainProb > 50) {
+                    rainStatusObj.textContent = 'สูง';
+                    rainStatusObj.className = 'status warning';
+                } else if (maxRainProb > 20) {
+                    rainStatusObj.textContent = 'ปานกลาง';
+                    rainStatusObj.className = 'status warning';
+                } else {
+                    rainStatusObj.textContent = 'ต่ำ';
+                    rainStatusObj.className = 'status good';
+                }
+
+                // AI Insight Rules
+                let insight = '';
+                if (maxRainProb >= 50) {
+                    insight = 'คาดว่าจะมีพายุ/ฝนตก <strong>ไม่แนะนำ</strong>ให้ฉีดพ่นปุ๋ยทางใบหรือสารเคมีในวันนี้ เนื่องจากอาจถูกน้ำฝนชะล้าง ควรเลื่อนเวลาออกไปจนกว่าอากาศจะปลอดโปร่ง';
+                } else if (current.temperature_2m > 36) {
+                    insight = 'อากาศร้อนจัดและแดดแรง <strong>ควรเฝ้าระวัง</strong>ระดับน้ำในนาข้าวไม่ให้แห้งขอด และหลีกเลี่ยงการทำงานกลางแจ้งในช่วงบ่าย';
+                } else if (current.relative_humidity_2m > 80 && current.temperature_2m > 30) {
+                    insight = 'อากาศร้อนชื้น <strong>มีความเสี่ยงระบาดของเชื้อรา</strong> ในแปลงนา แนะนำให้หมั่นสำรวจแปลงข้าวอย่างใกล้ชิด';
+                } else {
+                    insight = 'สภาพอากาศวันนี้ค่อนข้างแจ่มใส <strong>เหมาะสม</strong>สำหรับการลงพื้นที่ดูแลแปลงนา ฉีดพ่นฮอร์โมน หรือปุ๋ยบำรุงข้าวต่างๆ';
+                }
+                document.getElementById('aiInsightText').innerHTML = insight;
+
+                // --- UPDATE HOURLY ---
+                const hourlyContainer = document.getElementById('hourlyWeatherContainer');
+                hourlyContainer.innerHTML = '';
+
+                let count = 0;
+                for (let i = 0; i < hourly.time.length; i++) {
+                    const timeDate = new Date(hourly.time[i]);
+                    // Only show current and future hours, maximum 8 items
+                    if (timeDate.getHours() >= currentHour && count < 8) {
+                        const hourDetails = getWeatherDetails(hourly.weather_code[i]);
+                        const timeString = timeDate.getHours().toString().padStart(2, '0') + ':00';
+
+                        hourlyContainer.innerHTML += `
+                            <div class="hourly-item">
+                                <span class="time">${timeString}</span>
+                                <i class="fa-solid ${hourDetails.icon} icon-weather"></i>
+                                <span class="temp">${Math.round(hourly.temperature_2m[i])}°C</span>
+                            </div>
+                        `;
+                        count++;
+                    }
+                }
+
+                // Fill if less than 8 items (because it's near end of day)
+                if (count < 8) {
+                    for (let i = 0; i < (8 - count); i++) {
+                        hourlyContainer.innerHTML += `
+                            <div class="hourly-item" style="opacity: 0.5;">
+                                <span class="time">--:--</span>
+                                <i class="fa-solid fa-moon icon-weather"></i>
+                                <span class="temp">--°C</span>
+                            </div>
+                        `;
+                    }
+                }
+
+            } catch (e) {
+                console.error("Error fetching weather", e);
+                document.getElementById('currentDesc').textContent = 'ไม่สามารถโหลดข้อมูลได้';
+                document.getElementById('hourlyWeatherContainer').innerHTML = '<div style="padding:20px; text-align:center;">เกิดข้อผิดพลาดในการโหลดข้อมูล</div>';
+            }
+        }
+    </script>
 </body>
 
 </html>

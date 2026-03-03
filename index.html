@@ -56,15 +56,16 @@
                         </div>
                         <div class="card-body">
                             <div class="weather-main">
-                                <span class="temp">32°C</span>
-                                <span class="condition">แดดจัด</span>
+                                <span class="temp" id="dashTemp">--°C</span>
+                                <span class="condition" id="dashCondition"
+                                    style="font-size: 1rem; margin-top: 5px;">กำลังโหลด...</span>
                             </div>
                             <div class="weather-details">
                                 <div class="detail-item">
-                                    <i class="fa-solid fa-droplet"></i> ปริมาณน้ำ: 60%
+                                    <i class="fa-solid fa-droplet"></i> ความชื้น: <span id="dashHumidity">--%</span>
                                 </div>
                                 <div class="detail-item">
-                                    <i class="fa-solid fa-seedling"></i> ดิน: ชื้นปานกลาง
+                                    <i class="fa-solid fa-wind"></i> ลม: <span id="dashWind">-- กม./ชม.</span>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +180,44 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/app.js"></script>
+    <script>
+        const weatherIconsMap = {
+            0: 'ท้องฟ้าแจ่มใส', 1: 'มีเมฆบางส่วน', 2: 'มีเมฆเป็นส่วนมาก', 3: 'มีเมฆมาก',
+            45: 'มีหมอก', 48: 'มีหมอกจัด', 51: 'ฝนปรอยๆ', 53: 'ฝนปรอยๆ ปานกลาง', 55: 'ฝนปรอยๆ หนัก',
+            61: 'ฝนตกเล็กน้อย', 63: 'ฝนตกปานกลาง', 65: 'ฝนตกหนัก', 80: 'ฝนตกหย่อมๆ', 81: 'ฝนตกหนักหย่อมๆ',
+            82: 'ฝนตกหนักมาก หย่อมๆ', 95: 'พายุฝนฟ้าคะนอง', 96: 'พายุลูกเห็บตก', 99: 'พายุลูกเห็บตกหนัก'
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => fetchDashboardWeather(pos.coords.latitude, pos.coords.longitude),
+                    (err) => fetchDashboardWeather(13.754, 100.501) // Default to BKK
+                );
+            } else {
+                fetchDashboardWeather(13.754, 100.501);
+            }
+        });
+
+        async function fetchDashboardWeather(lat, lon) {
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const current = data.current;
+                const desc = weatherIconsMap[current.weather_code] || 'สภาพอากาศแปรปรวน';
+
+                document.getElementById('dashTemp').textContent = Math.round(current.temperature_2m) + '°C';
+                document.getElementById('dashCondition').textContent = desc;
+                document.getElementById('dashHumidity').textContent = current.relative_humidity_2m + '%';
+                document.getElementById('dashWind').textContent = Math.round(current.wind_speed_10m) + ' กม./ชม.';
+            } catch (e) {
+                console.error("Dashboard weather fetch error", e);
+                document.getElementById('dashCondition').textContent = 'โหลดข้อมูลไม่สำเร็จ';
+            }
+        }
+    </script>
 </body>
 
 </html>
