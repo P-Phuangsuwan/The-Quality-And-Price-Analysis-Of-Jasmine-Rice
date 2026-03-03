@@ -7,7 +7,7 @@
     <title>AI Rice Farming Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -30,13 +30,14 @@
             <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav class="sidebar-nav">
-            <a href="../user/user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="../index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
-            <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
-            <a href="../weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="../rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
-            <a href="../user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
-            <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i>
+            <a href="frontend/user/user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="frontend/news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
+            <a href="frontend/index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="frontend/index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i>
+                ราคาข้าวหอมมะลิ</a>
+            <a href="frontend/user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="frontend/frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i>
                 ออกจากระบบ</a>
         </nav>
     </aside>
@@ -47,7 +48,7 @@
             <h2 class="section-title"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ & ราคาข้าวหอมมะลิ</h2>
             <div class="cards-grid">
                 <!-- Weather Card -->
-                <a href="weather.html" style="text-decoration: none; color: inherit;">
+                <a href="frontend/index/weather.html" style="text-decoration: none; color: inherit;">
                     <div class="glass-card weather-card">
                         <div class="card-header">
                             <h3>สภาพอากาศวันนี้</h3>
@@ -71,7 +72,7 @@
                 </a>
 
                 <!-- Price Card -->
-                <a href="rice_price.html" style="text-decoration: none; color: inherit;">
+                <a href="frontend/index/rice_price.html" style="text-decoration: none; color: inherit;">
                     <div class="glass-card price-card">
                         <div class="card-header">
                             <h3>แนวโน้มราคาข้าวหอมมะลิ (AI พยากรณ์)</h3>
@@ -97,7 +98,7 @@
         <section class="bottom-section">
             <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> ข่าวสารการเกษตร</h2>
             <div class="news-list">
-                <a href="../news/newspart.html?id=1" style="text-decoration: none; color: inherit;">
+                <a href="frontend/news/newspart.html?id=1" style="text-decoration: none; color: inherit;">
                     <div class="glass-card news-card hover-lift">
                         <img src="https://images.unsplash.com/photo-1590682680695-43b964a3ae17?auto=format&fit=crop&q=80&w=600&h=300"
                             alt="Rice Field" class="news-image">
@@ -110,7 +111,7 @@
                     </div>
                 </a>
 
-                <a href="../news/newspart.html?id=2" style="text-decoration: none; color: inherit;">
+                <a href="frontend/news/newspart.html?id=2" style="text-decoration: none; color: inherit;">
                     <div class="glass-card news-card hover-lift">
                         <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&q=80&w=600&h=300"
                             alt="Agriculture Technology" class="news-image">
@@ -123,7 +124,7 @@
                     </div>
                 </a>
 
-                <a href="../news/newspart.html?id=3" style="text-decoration: none; color: inherit;">
+                <a href="frontend/news/newspart.html?id=3" style="text-decoration: none; color: inherit;">
                     <div class="glass-card news-card hover-lift">
                         <img src="https://images.unsplash.com/photo-1595822556555-d3c528f804fc?auto=format&fit=crop&q=80&w=600&h=300"
                             alt="Rice Market" class="news-image">
@@ -136,7 +137,7 @@
                     </div>
                 </a>
 
-                <a href="../news/newspart.html?id=4" style="text-decoration: none; color: inherit;">
+                <a href="frontend/news/newspart.html?id=4" style="text-decoration: none; color: inherit;">
                     <div class="glass-card news-card hover-lift">
                         <img src="https://images.unsplash.com/photo-1592982537447-6f2aa3c1b827?auto=format&fit=crop&q=80&w=600&h=300"
                             alt="Farmer community" class="news-image">
@@ -177,7 +178,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
