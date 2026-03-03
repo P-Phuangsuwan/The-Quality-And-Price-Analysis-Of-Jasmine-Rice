@@ -31,12 +31,12 @@
             <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="../index/index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
             <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
-            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="../index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="../index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
+            <a href="user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
             <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
         </nav>
     </aside>
@@ -70,27 +70,27 @@
 
                 <div class="account-detail-item">
                     <label>ชื่อ-นามสกุล</label>
-                    <div class="detail-value">สมหมาย เกษตรก้าวหน้า</div>
+                    <div id="display-name" class="detail-value">สมหมาย เกษตรก้าวหน้า</div>
                 </div>
 
                 <div class="account-detail-item">
                     <label>ที่อยู่</label>
-                    <div class="detail-value">99/9 หมู่ 4 ต.หนองนาคำ อ.เมือง จ.อุดรธานี 41000</div>
+                    <div id="display-address" class="detail-value">99/9 หมู่ 4 ต.หนองนาคำ อ.เมือง จ.อุดรธานี 41000</div>
                 </div>
 
                 <div class="account-detail-item">
                     <label>หมายเลขโทรศัพท์</label>
-                    <div class="detail-value">089-987-6543</div>
+                    <div id="display-phone" class="detail-value">089-987-6543</div>
                 </div>
 
                 <div class="account-detail-item">
                     <label>อีเมล</label>
-                    <div class="detail-value">sommai.farm@example.com</div>
+                    <div id="display-email" class="detail-value">sommai.farm@example.com</div>
                 </div>
 
                 <div class="account-detail-item">
                     <label>ชื่อบัญชี (Username)</label>
-                    <div class="detail-value">Sommai_SmartRice</div>
+                    <div id="display-username" class="detail-value">Sommai_SmartRice</div>
                 </div>
             </div>
         </div>
@@ -99,6 +99,22 @@
 
     <!-- Scripts -->
     <script src="../js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fname = localStorage.getItem('accountFname') || 'สมหมาย';
+            const lname = localStorage.getItem('accountLname') || 'เกษตรก้าวหน้า';
+            const address = localStorage.getItem('accountAddress') || '99/9 หมู่ 4 ต.หนองนาคำ อ.เมือง จ.อุดรธานี 41000';
+            const phone = localStorage.getItem('accountPhone') || '089-987-6543';
+            const email = localStorage.getItem('accountEmail') || 'sommai.farm@example.com';
+            const username = localStorage.getItem('accountUsername') || 'Sommai_SmartRice';
+
+            document.getElementById('display-name').textContent = fname + ' ' + lname;
+            document.getElementById('display-address').textContent = address;
+            document.getElementById('display-phone').textContent = phone;
+            document.getElementById('display-email').textContent = email;
+            document.getElementById('display-username').textContent = username;
+        });
+    </script>
 </body>
 
 </html>

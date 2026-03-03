@@ -32,10 +32,10 @@
         </div>
         <nav class="sidebar-nav">
             <a href="user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="../index/index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
             <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
-            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
+            <a href="../index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="../index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
             <a href="user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
             <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
         </nav>
@@ -50,7 +50,8 @@
         <h2 class="section-title"><i class="fa-solid fa-pen-to-square"></i> แก้ไขข้อมูลบัญชี</h2>
 
         <!-- Gray Box Area -->
-        <form action="user_account.html" method="GET" class="account-gray-box">
+        <form id="editAccountForm" action="user_account.html" method="GET" class="account-gray-box"
+            onsubmit="saveAccountData()">
 
             <!-- Left Panel -->
             <div class="account-left-panel">
@@ -75,32 +76,33 @@
                     <div style="display: flex; gap: 15px;">
                         <div class="edit-input-group" style="flex: 1;">
                             <label>ชื่อ</label>
-                            <input type="text" class="edit-input" value="สมหมาย" required>
+                            <input type="text" id="edit-fname" class="edit-input" value="สมหมาย" required>
                         </div>
                         <div class="edit-input-group" style="flex: 1;">
                             <label>นามสกุล</label>
-                            <input type="text" class="edit-input" value="เกษตรก้าวหน้า" required>
+                            <input type="text" id="edit-lname" class="edit-input" value="เกษตรก้าวหน้า" required>
                         </div>
                     </div>
 
                     <div class="edit-input-group">
                         <label>ที่อยู่</label>
-                        <textarea class="edit-input" required>99/9 หมู่ 4 ต.หนองนาคำ อ.เมือง จ.อุดรธานี 41000</textarea>
+                        <textarea id="edit-address" class="edit-input"
+                            required>99/9 หมู่ 4 ต.หนองนาคำ อ.เมือง จ.อุดรธานี 41000</textarea>
                     </div>
 
                     <div class="edit-input-group">
                         <label>หมายเลขโทรศัพท์</label>
-                        <input type="tel" class="edit-input" value="089-987-6543" required>
+                        <input type="tel" id="edit-phone" class="edit-input" value="089-987-6543" required>
                     </div>
 
                     <div class="edit-input-group">
                         <label>อีเมล</label>
-                        <input type="email" class="edit-input" value="sommai.farm@example.com" required>
+                        <input type="email" id="edit-email" class="edit-input" value="sommai.farm@example.com" required>
                     </div>
 
                     <div class="edit-input-group">
                         <label>ชื่อบัญชี (Username)</label>
-                        <input type="text" class="edit-input" value="Sommai_SmartRice" required>
+                        <input type="text" id="edit-username" class="edit-input" value="Sommai_SmartRice" required>
                     </div>
 
                 </div>
@@ -111,6 +113,37 @@
 
     <!-- Scripts -->
     <script src="../js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem('accountFname')) {
+                document.getElementById('edit-fname').value = localStorage.getItem('accountFname');
+            }
+            if (localStorage.getItem('accountLname')) {
+                document.getElementById('edit-lname').value = localStorage.getItem('accountLname');
+            }
+            if (localStorage.getItem('accountAddress')) {
+                document.getElementById('edit-address').value = localStorage.getItem('accountAddress');
+            }
+            if (localStorage.getItem('accountPhone')) {
+                document.getElementById('edit-phone').value = localStorage.getItem('accountPhone');
+            }
+            if (localStorage.getItem('accountEmail')) {
+                document.getElementById('edit-email').value = localStorage.getItem('accountEmail');
+            }
+            if (localStorage.getItem('accountUsername')) {
+                document.getElementById('edit-username').value = localStorage.getItem('accountUsername');
+            }
+        });
+
+        function saveAccountData() {
+            localStorage.setItem('accountFname', document.getElementById('edit-fname').value);
+            localStorage.setItem('accountLname', document.getElementById('edit-lname').value);
+            localStorage.setItem('accountAddress', document.getElementById('edit-address').value);
+            localStorage.setItem('accountPhone', document.getElementById('edit-phone').value);
+            localStorage.setItem('accountEmail', document.getElementById('edit-email').value);
+            localStorage.setItem('accountUsername', document.getElementById('edit-username').value);
+        }
+    </script>
 </body>
 
 </html>

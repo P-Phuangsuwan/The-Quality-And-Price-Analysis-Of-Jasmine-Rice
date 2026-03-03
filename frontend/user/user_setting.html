@@ -31,10 +31,10 @@
         </div>
         <nav class="sidebar-nav">
             <a href="user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="../index/index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
             <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
-            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
+            <a href="../index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="../index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
             <a href="user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
             <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
         </nav>
@@ -50,9 +50,9 @@
                 <li><a class="active" onclick="switchTab('profile')"><i class="fa-regular fa-user"></i> บัญชีผู้ใช้</a>
                 </li>
                 <li><a onclick="switchTab('farm')"><i class="fa-solid fa-tractor"></i> ข้อมูลฟาร์ม</a></li>
-                <li><a onclick="switchTab('notifications')"><i class="fa-regular fa-bell"></i> การแจ้งเตือน</a></li>
-                <li><a onclick="switchTab('appearance')"><i class="fa-solid fa-palette"></i> การแสดงผล</a></li>
-                <li><a onclick="switchTab('security')"><i class="fa-solid fa-shield-halved"></i> ความปลอดภัย</a></li>
+                <!-- <li><a onclick="switchTab('notifications')"><i class="fa-regular fa-bell"></i> การแจ้งเตือน</a></li> -->
+                <!-- <li><a onclick="switchTab('appearance')"><i class="fa-solid fa-palette"></i> การแสดงผล</a></li>
+                <li><a onclick="switchTab('security')"><i class="fa-solid fa-shield-halved"></i> ความปลอดภัย</a></li> -->
             </ul>
         </aside>
 
@@ -79,7 +79,8 @@
                         <label for="phone">เบอร์โทรศัพท์</label>
                         <input type="text" id="phone" class="form-control" value="081-234-5678">
                     </div>
-                    <button class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> บันทึกข้อมูล</button>
+                    <button class="btn-primary" onclick="saveSettingData()"><i class="fa-solid fa-floppy-disk"></i>
+                        บันทึกข้อมูล</button>
                 </div>
             </section>
 
@@ -112,12 +113,22 @@
                             <option value="sand">ดินทราย</option>
                         </select>
                     </div>
-                    <button class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> อัปเดตข้อมูลไร่</button>
+                    <button class="btn-primary" onclick="updateFarmData()"><i class="fa-solid fa-floppy-disk"></i>
+                        อัปเดตข้อมูลไร่</button>
+
+                    <!-- AI Recommendation Box -->
+                    <div id="aiRecommendationBox"
+                        style="display: none; margin-top: 20px; padding: 15px; border-radius: 8px; background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border: 1px solid #80cbc4;">
+                        <h4 style="color: #00796b; margin-bottom: 10px;"><i class="fa-solid fa-robot"></i>
+                            คำแนะนำใหม่จาก AI</h4>
+                        <div id="aiRecommendationContent" style="color: #004d40; font-size: 0.95em; line-height: 1.5;">
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- Notification Settings -->
-            <section id="notifications" class="setting-panel">
+            <!-- <section id="notifications" class="setting-panel">
                 <div class="panel-header">
                     <h2>การแจ้งเตือน</h2>
                     <p>จัดการรับข่าวสารและการเตือนภัยต่างๆ จากระบบ</p>
@@ -159,10 +170,10 @@
                         </label>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <!-- Appearance Settings -->
-            <section id="appearance" class="setting-panel">
+            <!-- <section id="appearance" class="setting-panel">
                 <div class="panel-header">
                     <h2>การแสดงผล</h2>
                     <p>ปรับแต่งหน้าตาของแอปพลิเคชันตามที่คุณต้องการ</p>
@@ -190,7 +201,7 @@
                 </div>
             </section>
 
-            <!-- Security Settings -->
+            Security Settings
             <section id="security" class="setting-panel">
                 <div class="panel-header">
                     <h2>ความปลอดภัย</h2>
@@ -235,7 +246,7 @@
                         การลบบัญชีจะเป็นการลบข้อมูลทั้งหมดของคุณออกจากระบบและไม่สามารถกู้คืนได้</p>
                     <button class="btn-danger"><i class="fa-solid fa-trash-can"></i> ลบบัญชีผู้ใช้</button>
                 </div>
-            </section>
+            </section> -->
         </main>
     </div>
 
@@ -260,6 +271,89 @@
             if (selectedPanel) {
                 selectedPanel.classList.add('active');
             }
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Load existing data
+            const fname = localStorage.getItem('accountFname') || 'สมหมาย';
+            const lname = localStorage.getItem('accountLname') || 'เกษตรก้าวหน้า';
+            const phone = localStorage.getItem('accountPhone') || '089-987-6543';
+            const email = localStorage.getItem('accountEmail') || 'sommai.farm@example.com';
+
+            document.getElementById('fullName').value = fname + ' ' + lname;
+            document.getElementById('phone').value = phone;
+            document.getElementById('email').value = email;
+
+            // Load farm data
+            const savedFarmSize = localStorage.getItem('farmSize');
+            if (savedFarmSize) document.getElementById('farmSize').value = savedFarmSize;
+            const savedRiceType = localStorage.getItem('riceType');
+            if (savedRiceType) document.getElementById('riceType').value = savedRiceType;
+            const savedSoilType = localStorage.getItem('soilType');
+            if (savedSoilType) document.getElementById('soilType').value = savedSoilType;
+        });
+
+        function saveSettingData() {
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+
+            // Simple split for first and last name
+            const nameParts = fullName.trim().split(/\s+/);
+            const fname = nameParts[0] || '';
+            const lname = nameParts.slice(1).join(' ') || '';
+
+            localStorage.setItem('accountFname', fname);
+            localStorage.setItem('accountLname', lname);
+            localStorage.setItem('accountPhone', phone);
+            localStorage.setItem('accountEmail', email);
+
+            alert('บันทึกข้อมูลสำเร็จ');
+        }
+
+        function updateFarmData() {
+            const farmSize = document.getElementById('farmSize').value;
+            const riceType = document.getElementById('riceType').value;
+            const soilType = document.getElementById('soilType').value;
+
+            localStorage.setItem('farmSize', farmSize);
+            localStorage.setItem('riceType', riceType);
+            localStorage.setItem('soilType', soilType);
+
+            const aiBox = document.getElementById('aiRecommendationBox');
+            const aiContent = document.getElementById('aiRecommendationContent');
+
+            aiContent.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังวิเคราะห์ข้อมูลของคุณ...';
+            aiBox.style.display = 'block';
+
+            setTimeout(() => {
+                let riceName = '';
+                if (riceType === 'white_jasmine105') riceName = 'ข้าวขาวดอกมะลิ 105';
+                else if (riceType === 'khorgor15') riceName = 'ข้าว กข15';
+                else if (riceType === 'thungkula_jasmine') riceName = 'ข้าวหอมมะลิทุ่งกุลาร้องไห้';
+
+                let soilName = '';
+                if (soilType === 'clay') soilName = 'ดินเหนียว';
+                else if (soilType === 'loam') soilName = 'ดินร่วน';
+                else if (soilType === 'sand') soilName = 'ดินทราย';
+
+                let recommendation = `<strong>ผลการวิเคราะห์สำหรับพื้นที่ ${farmSize} ไร่:</strong><br><br>`;
+                recommendation += `เนื่องจากคุณปลูก <strong>${riceName}</strong> บน <strong>${soilName}</strong> AI ขอแนะนำดังนี้:<br>`;
+
+                if (soilType === 'sand') {
+                    recommendation += `- <strong>การจัดการดิน:</strong> ดินทรายเก็บน้ำและธาตุอาหารได้น้อย ควรแบ่งใส่ปุ๋ยทีละน้อยแต่บ่อยครั้ง เพื่อให้ต้นข้าวดูดซึมได้เต็มที่<br>`;
+                } else if (soilType === 'clay') {
+                    recommendation += `- <strong>การจัดการดิน:</strong> ดินเหนียวอุ้มน้ำได้ดี ควรเตรียมดินให้ร่วนซุยก่อนปักดำ และระวังโรคเชื้อราที่เกิดจากความชื้นสะสม<br>`;
+                } else {
+                    recommendation += `- <strong>การจัดการดิน:</strong> ดินร่วนมีความเหมาะสมในการปลูกข้าว ควรเสริมปุ๋ยอินทรีย์เพื่อรักษาโครงสร้างดินในระยะยาว<br>`;
+                }
+
+                recommendation += `- <strong>ปริมาณเมล็ดพันธุ์:</strong> แนะนำที่ประมาณ ${farmSize * 15} - ${farmSize * 20} กิโลกรัม สำหรับพื้นที่ทั้งหมด<br>`;
+                recommendation += `- <strong>การคาดการณ์อากาศ:</strong> ช่วงนี้อากาศอาจมีการเปลี่ยนแปลง ควรติดตามสภาพอากาศในระบบอย่างใกล้ชิดก่อนหว่านปุ๋ยหรือพ่นยา`;
+
+                aiContent.innerHTML = recommendation;
+            }, 1000);
         }
     </script>
     <script src="../js/app.js"></script>
