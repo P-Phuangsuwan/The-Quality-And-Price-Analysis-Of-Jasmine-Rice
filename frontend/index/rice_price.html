@@ -70,12 +70,12 @@
                 </div>
                 <div class="today-price-content">
                     <div class="price-main-display">
-                        <span class="price-value">12,500</span>
+                        <span class="price-value" id="todayPriceValue">--</span>
                         <span class="price-currency">บาท/ตัน</span>
                     </div>
-                    <div class="price-trend up-trend float-anim">
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-                        <span>+200 บาท (ขึ้นจากเมื่อวาน)</span>
+                    <div class="price-trend float-anim" id="priceTrendBox">
+                        <i class="fa-solid fa-spinner fa-spin" id="priceTrendIcon"></i>
+                        <span id="priceTrendText">กำลังดึงราคาแบบเรียลไทม์...</span>
                     </div>
                     <div class="moisture-badge">
                         <i class="fa-solid fa-droplet"></i> ความชื้น 15%
@@ -88,24 +88,12 @@
                 <div class="box-header">
                     <h3><i class="fa-solid fa-crystal-ball"></i> พยากรณ์ 3 เดือนถัดไป</h3>
                 </div>
-                <div class="forecast-content">
-                    <div class="forecast-item">
-                        <span class="month">มี.ค.</span>
-                        <div class="forecast-bar bar-up" style="height: 60%;"></div>
-                        <span class="f-price">12,800</span>
-                    </div>
-                    <div class="forecast-item">
-                        <span class="month">เม.ย.</span>
-                        <div class="forecast-bar bar-up" style="height: 80%;"></div>
-                        <span class="f-price">13,200</span>
-                    </div>
-                    <div class="forecast-item">
-                        <span class="month">พ.ค.</span>
-                        <div class="forecast-bar bar-down" style="height: 50%;"></div>
-                        <span class="f-price">12,600</span>
+                <div class="forecast-content" id="forecastContainer">
+                    <div style="width: 100%; text-align: center; color: var(--text-muted); padding: 20px;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> กำลังวิเคราะห์ข้อมูลตลาด...
                     </div>
                 </div>
-                <p class="forecast-summary text-center mt-3">คาดว่าราคาจะพุ่งสูงสุดในเดือนเมษายน</p>
+                <p class="forecast-summary text-center mt-3" id="forecastSummaryText">ประมวลผลการพยากรณ์ล่วงหน้า...</p>
             </section>
 
             <!-- กรอบสีแดงที่ 4 : วิเคราะห์ข้อมูลจากกราฟและแนะนำให้ทำอย่างไร -->
@@ -114,17 +102,12 @@
                     <h3><i class="fa-solid fa-microchip"></i> AI วิเคราะห์และคำแนะนำ</h3>
                 </div>
                 <div class="ai-analysis-content">
-                    <div class="insight-status highlight-hold">
-                        <i class="fa-solid fa-boxes-stacked"></i>
-                        <span>กลยุทธ์: <strong>ชะลอการขาย</strong></span>
+                    <div class="insight-status" id="aiActionStatus">
+                        <i class="fa-solid fa-microchip" id="aiActionIcon"></i>
+                        <span id="aiActionTitle">กำลังใช้ AI ประมวลผล...</span>
                     </div>
-                    <div class="insight-text">
-                        <p><strong>ผลการวิเคราะห์:</strong>
-                            จากกราฟแนวโน้มแสดงให้เห็นว่าตลาดยังมีความต้องการสูงขึ้นต่อเนื่องในช่วงภัยแล้ง</p>
-                        <p><strong>คำแนะนำสำหรับคุณ:</strong> หากคุณมียุ้งฉางที่ได้มาตรฐาน
-                            ควรเก็บข้าวหอมมะลิรอจำหน่ายในช่วงเดือนเมษายน ซึ่ง AI คาดการณ์ว่าราคาจะปรับขึ้นไปถึง 13,200
-                            บาท/ตัน
-                            จะทำให้ได้กำไรสูงสุด</p>
+                    <div class="insight-text" id="aiActionText">
+                        <p>กำลังวิเคราะห์ข้อมูลกับฐานข้อมูลกลาง...</p>
                     </div>
                     <button class="action-btn mt-3"><i class="fa-solid fa-bell"></i>
                         แจ้งเตือนเมื่อราคาขึ้นถึงเป้าหมาย</button>
