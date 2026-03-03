@@ -107,3 +107,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+// --- Farm Data Update Logic ---
+function updateFarmData() {
+    const size = document.getElementById('farmSize').value || 15;
+    const rice = document.getElementById('riceType').value;
+    const soil = document.getElementById('soilType').value;
+
+    let recommendation = "";
+
+    // วิเคราะห์ตามสายพันธุ์ข้าว
+    if (rice === 'white_jasmine105') {
+        recommendation += "<strong>ขาวดอกมะลิ 105:</strong> เป็นสายพันธุ์ที่ทนแล้งได้ดี ทนดินเปรี้ยว ข้าวสุกจะอ่อนนุ่มและมีกลิ่นหอมมาก ควรระวังเรื่องน้ำหลากในช่วงใกล้เก็บเกี่ยว<br>";
+    } else if (rice === 'khorgor15') {
+        recommendation += "<strong>กข15:</strong> อายุเก็บเกี่ยวสั้นกว่าขาวดอกมะลิ 105 ประมาณ 10 วัน เหมาะกับพื้นที่ที่ฝนอาจหมดเร็วหรือน้ำน้อยตอนปลายฤดู<br>";
+    } else {
+        recommendation += "<strong>หอมมะลิทุ่งกุลาฯ:</strong> ต้องการการดูแลพิเศษในพื้นที่ที่มีความแห้งแล้งและดินร่วนปนทรายเพื่อให้ได้ความหอมสูงสุด<br>";
+    }
+
+    // วิเคราะห์ตามสภาพดิน
+    if (soil === 'clay') {
+        recommendation += "สภาพ <strong>ดินเหนียว</strong> ช่วยอุ้มน้ำและธาตุอาหารได้ดี ทนแล้งได้ดีกว่าดินประเภทอื่น ลดการสูญเสียน้ำในนา<br>";
+    } else if (soil === 'sand') {
+        recommendation += "สภาพ <strong>ดินทราย</strong> ระบายน้ำได้เร็วมาก ควรหมั่นสังเกตระดับน้ำและอาจต้องเติมปุ๋ยอินทรีย์เพื่อช่วยเพิ่มความสามารถในการอุ้มน้ำ<br>";
+    } else {
+        recommendation += "สภาพ <strong>ดินร่วน</strong> มีความอุดมสมบูรณ์ปานกลางถึงดี ระบายน้ำได้ดี เหมาะกับการเพาะปลูกทั่วไป<br>";
+    }
+
+    // วิเคราะห์ปัจจัยการผลิตตามขนาดพื้นที่
+    const seedAmount = size * 15; // ประมาณ 15 กก. ต่อไร่
+    const expectedYieldMin = size * 350; // ขั้นต่ำ 350 กก./ไร่
+    const expectedYieldMax = size * 500; // สูงสุด 500 กก./ไร่
+
+    recommendation += `<br><div style="background-color: #ffffff99; padding: 10px; border-radius: 5px; margin-top: 10px;">
+        <strong><i class="fa-solid fa-calculator"></i> AI วิเคราะห์สำหรับพื้นที่ ${size} ไร่:</strong><br>
+        - แนะนำเตรียมเมล็ดพันธุ์: ประมาณ ${seedAmount.toLocaleString()} กิโลกรัม (สูตร 15 กก./ไร่)<br>
+        - คาดการณ์ผลผลิต: ${expectedYieldMin.toLocaleString()} - ${expectedYieldMax.toLocaleString()} กิโลกรัม (ขึ้นอยู่กับสภาพอากาศและการปฏิบัติดูแล)
+    </div>`;
+
+    // แสดงผล
+    const box = document.getElementById('aiRecommendationBox');
+    const content = document.getElementById('aiRecommendationContent');
+
+    content.innerHTML = recommendation;
+    box.style.display = 'block';
+
+    // เลื่อนลงมาให้เห็นชัดเจน
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}

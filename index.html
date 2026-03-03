@@ -97,6 +97,49 @@
             </div>
         </section>
 
+        <!-- Farm Settings -->
+        <section id="farm" class="setting-panel">
+            <div class="panel-header">
+                <h2>ข้อมูลฟาร์ม</h2>
+                <p>ตั้งค่ารายละเอียดเกี่ยวกับพื้นที่เพาะปลูกของคุณเพื่อความแม่นยำของ AI</p>
+            </div>
+
+            <div class="setting-group">
+                <h3><i class="fa-solid fa-map-location-dot"></i> ตำแหน่งและขนาด</h3>
+                <div class="form-row">
+                    <label for="farmSize">ขนาดพื้นที่ (ไร่)</label>
+                    <input type="number" id="farmSize" class="form-control" value="15">
+                </div>
+                <div class="form-row">
+                    <label for="riceType">สายพันธุ์ข้าวที่ปลูกประจำ</label>
+                    <select id="riceType" class="form-control">
+                        <option value="white_jasmine105" selected>ข้าวขาวดอกมะลิ 105</option>
+                        <option value="khorgor15">ข้าว กข15</option>
+                        <option value="thungkula_jasmine">ข้าวหอมมะลิทุ่งกุลาร้องไห้</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="soilType">สภาพดิน</label>
+                    <select id="soilType" class="form-control">
+                        <option value="clay">ดินเหนียว</option>
+                        <option value="loam">ดินร่วน</option>
+                        <option value="sand">ดินทราย</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="updateFarmData()"><i class="fa-solid fa-floppy-disk"></i>
+                อัปเดตข้อมูลไร่</button>
+
+                <!-- AI Recommendation Box -->
+                <div id="aiRecommendationBox"
+                    style="display: none; margin-top: 20px; padding: 15px; border-radius: 8px; background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border: 1px solid #80cbc4;">
+                    <h4 style="color: #00796b; margin-bottom: 10px;"><i class="fa-solid fa-robot"></i>
+                        คำแนะนำใหม่จาก AI</h4>
+                    <div id="aiRecommendationContent" style="color: #004d40; font-size: 0.95em; line-height: 1.5;">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
         <!-- News Section (Green in sketch) -->
         <!-- <section class="bottom-section">
             <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> ข่าวสารการเกษตร</h2>
