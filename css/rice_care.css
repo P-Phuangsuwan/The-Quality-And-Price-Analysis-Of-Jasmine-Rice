@@ -1,5 +1,14 @@
 /* rice_care.css */
 
+/* Override back button color for light background */
+.care-back-btn {
+    color: var(--chatbot-btn) !important;
+}
+
+.care-back-btn:hover {
+    color: var(--accent-green) !important;
+}
+
 .rice-care-container {
     padding: 20px;
     margin-top: 60px;

@@ -188,24 +188,34 @@ function updateFarmData() {
             weatherWarning = `<strong style="color: #38a169;">สภาพอากาศเหมาะสม:</strong> เป็นช่วงเวลาที่ดีในการบำรุงรักษาแปลงนา หรือลงพื้นที่เพื่อฉีดพ่นฮอร์โมน`;
         }
 
+        let stageName = "ระยะกล้า";
+        if (riceStage === 'tillering') stageName = "ระยะแตกกอ";
+        if (riceStage === 'booting') stageName = "ระยะตั้งท้อง";
+        if (riceStage === 'flowering') stageName = "ระยะออกรวง";
+
         // 1.1 Water Management
         let waterAction = "";
         if (waterLevel <= 2 && rainProb < 30) {
             waterAction = `ระดับน้ำจำลองต่ำมากแค่ ${waterLevel} ซม. <strong>ควรรีบสูบน้ำเข้าเติม</strong> รักษาระดับ 3-5 ซม.`;
+            if (riceStage === 'booting' || riceStage === 'flowering') waterAction += ` <span style="color:#e53e3e;">(สำคัญ: ข้าว${stageName}ขาดน้ำไม่ได้เด็ดขาด จะทำให้รวงลีบ)</span>`;
         } else if (rainProb > 80 || waterLevel > 12) {
-            waterAction = `โอกาสฝนสูง (${rainProb}%) หรือระดับน้ำมากเกินไป (${waterLevel} ซม.) <strong>เตรียมทะลวงท่อระบายน้ำขัง</strong>`;
+            waterAction = `โอกาสฝนสูง (${rainProb}%) หรือระดับน้ำมากเกินไป (${waterLevel} ซม.) <strong>เตรียมระบายน้ำออก</strong>`;
+            if (riceStage === 'seedling') waterAction += ` <span style="color:#d69e2e;">(ระวังต้นกล้าจมน้ำตาย)</span>`;
         } else {
             waterAction = `ระดับน้ำเหมาะสม สภาพการจัดการน้ำอยู่ในเกณฑ์ปลอดภัย`;
+            if (riceStage === 'tillering') waterAction += ` <span style="color:#38a169;">(สามารถปล่อยน้ำแห้งสลับเปียกเพื่อกระตุ้นรากได้)</span>`;
         }
 
         // 1.2 Temp Management
         let tempAction = "";
         if (temp >= 35) {
-            tempAction = `อุณหภูมิ ${temp}°C <strong>เฝ้าระวังข้าวเมล็ดลีบช่วงตั้งท้อง</strong> แนะนำให้เพิ่มระดับน้ำช่วยระบายความร้อนที่ราก`;
+            tempAction = `อุณหภูมิ ${temp}°C <strong>ร้อนจัด</strong> แนะนำให้เพิ่มระดับน้ำช่วยระบายความร้อนที่ราก`;
+            if (riceStage === 'booting' || riceStage === 'flowering') tempAction += ` <span style="color:#e53e3e;">(เฝ้าระวังดอกร่วงและเกสรหมันในช่วง${stageName})</span>`;
         } else if (temp <= 20) {
             tempAction = `อากาศเย็น ${temp}°C อาจทำให้ข้าวชะงักการเติบโต เพิ่มระดับน้ำรักษาอุณหภูมิดิน`;
+            if (riceStage === 'seedling') tempAction += ` <span style="color:#d69e2e;">(ระวังต้นกล้าแคระแกร็น)</span>`;
         } else {
-            tempAction = `อุณหภูมิกำลังดี (${temp}°C) เหมาะกับการเจริญเติบโต`;
+            tempAction = `อุณหภูมิกำลังดี (${temp}°C) เหมาะกับการเจริญเติบโตในช่วง${stageName}`;
         }
 
         // 1.3 Disease Management
@@ -217,6 +227,8 @@ function updateFarmData() {
         } else {
             diseaseAction = `ความเสี่ยงโรคและแมลงอยู่ในเกณฑ์ต่ำ ควรหมั่นถอนวัชพืชเพื่อให้แสงสาดส่องทั่วถึง`;
         }
+        if (riceStage === 'seedling') diseaseAction += ` <span style="color:#d69e2e;">(ระวังศัตรูพืชจำพวกหอยเชอรี่และปูนาทำลายต้นกล้า)</span>`;
+        if (riceStage === 'tillering') diseaseAction += ` <span style="color:#d69e2e;">(หมั่นสำรวจแปลงนาหาหนอนกอหรือเพลี้ย)</span>`;
 
         // 1.4 Soil Management
         let soilAction = "";
@@ -228,6 +240,8 @@ function updateFarmData() {
             } else {
                 soilAction = `ค่า pH ดิน ${soilPH} เหมาะสมอย่างยิ่งกับการปลูกข้าว ระบบรากดูดซึมสารอาหารได้เต็มที่`;
             }
+            if (riceStage === 'tillering') soilAction += ` <span style="color:#38a169;">(ระยะนี้ควรเน้นปุ๋ยไนโตรเจนสูงเพื่อเร่งการแตกกอ)</span>`;
+            if (riceStage === 'booting') soilAction += ` <span style="color:#38a169;">(ระยะนี้ควรเน้นปุ๋ยสูตรตัวท้ายสูงเพื่อบำรุงรวง)</span>`;
         }
 
         // 2. Get Price Forecast Logic (From DOM)
@@ -242,11 +256,7 @@ function updateFarmData() {
         }
 
         // 3. Farm Specific Logic (From above calculations)
-        let stageName = "ระยะกล้า";
-        if (riceStage === 'tillering') stageName = "ระยะแตกกอ";
-        if (riceStage === 'booting') stageName = "ระยะตั้งท้อง";
-        if (riceStage === 'flowering') stageName = "ระยะออกรวง";
-        let farmAction = `สำหรับพื้นที่ ${size} ไร่ ที่ปลูก${rice === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105' : (rice === 'khorgor15' ? 'ข้าว กข15' : 'ข้าวหอมมะลิทุ่งกุลาฯ')} (<strong>${stageName}</strong>) ในสภาพ${soil === 'clay' ? 'ดินเหนียว' : (soil === 'sand' ? 'ดินทราย' : 'ดินร่วน')}`;
+        let farmAction = `สำหรับพื้นที่ ${size} ไร่ ที่ปลูก${rice === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105' : (rice === 'khorgor15' ? 'ข้าว กข15' : 'ข้าวขาวดอกมะลิ 105')} ในสภาพ${soil === 'clay' ? 'ดินเหนียว' : (soil === 'sand' ? 'ดินทราย' : 'ดินร่วน')}`;
 
         // Assemble Unified Report
         let unifiedHTML = `

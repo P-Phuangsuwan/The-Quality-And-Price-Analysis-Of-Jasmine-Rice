@@ -41,9 +41,10 @@
 
     <main class="dashboard-container rice-care-container">
 
-        <a href="../../index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> กลับไปหน้าแรก</a>
+        <a href="../../index.html" class="back-btn care-back-btn"><i class="fa-solid fa-arrow-left"></i>
+            กลับไปหน้าแรก</a>
 
-        <div class="page-title-area text-white">
+        <div class="page-title-area">
             <h2 class="section-title"><i class="fa-solid fa-stethoscope"></i> การจัดการความเครียดของข้าว</h2>
             <p class="subtitle">วินิจฉัยปัญหาและรับคำแนะนำการดูแลแปลงนาจาก Smart Rice AI</p>
         </div>
@@ -51,7 +52,7 @@
         <!-- Grey Tabs Menu -->
         <div class="care-tabs">
             <button class="care-tab-btn active" data-tab="water">
-                <i class="fa-solid fa-water"></i> การจัดการเรื่องน้ำ (ภัยแล้ง/น้ำท่วม)
+                <i class="fa-solid fa-water"></i> การจัดการเรื่องน้ำ
             </button>
             <button class="care-tab-btn" data-tab="temperature">
                 <i class="fa-solid fa-temperature-half"></i> การจัดการเรื่องอุณหภูมิ
@@ -92,7 +93,7 @@
                 <!-- Real-time Context Box (Dynamic from API) -->
                 <div class="form-group real-time-context mt-3">
                     <label style="color: #0284c7; font-weight: 600;"><i class="fa-solid fa-satellite-dish"></i>
-                        ข้อมูลสภาพอากาศปัจจุบัน (ดึงจากระบบ)</label>
+                        ข้อมูลสภาพอากาศปัจจุบัน</label>
                     <div id="dynamicContextBox"
                         style="background: #f8fafc; border: 1px solid #bae6fd; border-radius: 8px; padding: 15px; font-size: 0.95rem; line-height: 1.5;">
                         <div class="text-center" style="color: var(--text-muted);">

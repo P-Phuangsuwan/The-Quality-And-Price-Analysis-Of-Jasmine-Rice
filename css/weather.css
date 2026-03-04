@@ -2,10 +2,10 @@
 
 /* Dynamic Weather Background */
 body {
-    background: linear-gradient(-45deg, #5b8cd9, #79bced, #6bcce3, #4a7ecc);
+    background: linear-gradient(-45deg, #e0f2e9, #cce8d6, #e6f7ec, #d4ebd9);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
-    color: #ffffff;
+    color: #334155;
     min-height: 100vh;
 }
 
@@ -24,8 +24,8 @@ body {
 }
 
 .text-white {
-    color: white !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: #1e293b !important;
+    text-shadow: none;
 }
 
 .weather-page-container {
@@ -48,24 +48,24 @@ body {
 
 /* Premium Glass Panel (replaces red-box) */
 .weather-card.glass-panel {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     position: relative;
     overflow: hidden;
-    color: white;
+    color: #334155;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .weather-card.glass-panel:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 1);
 }
 
 /* Add a subtle inner glow / shine to glass panel */
@@ -96,7 +96,7 @@ body {
 }
 
 .box-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     padding-bottom: 18px;
     margin-bottom: 25px;
     display: flex;
@@ -139,9 +139,9 @@ body {
 }
 
 .hourly-item {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 16px;
     min-width: 100px;
     padding: 20px 15px;
@@ -155,9 +155,9 @@ body {
 
 .hourly-item:hover {
     transform: translateY(-8px) scale(1.05);
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .hourly-item .time {
@@ -177,18 +177,18 @@ body {
 }
 
 .highlight-sun {
-    color: #ffd000;
-    text-shadow: 0 0 15px rgba(255, 208, 0, 0.8);
+    color: #eab308;
+    text-shadow: none;
 }
 
 .highlight-rain {
-    color: #48dbfb;
-    text-shadow: 0 0 15px rgba(72, 219, 251, 0.6);
+    color: #3b82f6;
+    text-shadow: none;
 }
 
 /* Current Location Weather */
 .location-badge {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(5px);
     padding: 8px 16px;
     border-radius: 30px;
@@ -196,8 +196,8 @@ body {
     font-weight: 500;
     display: flex;
     align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .current-weather-content {
@@ -215,8 +215,8 @@ body {
 
 .display-icon {
     font-size: 5rem;
-    color: #fff;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    color: #0ea5e9;
+    filter: drop-shadow(0 8px 16px rgba(14, 165, 233, 0.2));
 }
 
 /* Float Animation */
@@ -247,8 +247,8 @@ body {
     font-size: 4.5rem;
     font-weight: 700;
     line-height: 1;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    background: -webkit-linear-gradient(#fff, #f0f0f0);
+    text-shadow: none;
+    background: -webkit-linear-gradient(#0ea5e9, #3b82f6);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -256,14 +256,15 @@ body {
 
 .temp-text .desc {
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: 500;
     opacity: 0.9;
     margin-top: 8px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.6);
     padding: 6px 14px;
     border-radius: 20px;
     backdrop-filter: blur(4px);
     display: inline-block;
+    color: #475569;
 }
 
 /* Metrics Cards Wrapper */
@@ -274,9 +275,9 @@ body {
 }
 
 .metric-card {
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 16px;
     padding: 20px;
     display: flex;
@@ -284,26 +285,26 @@ body {
     align-items: center;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .metric-card:hover {
     transform: translateY(-5px);
-    background: rgba(0, 0, 0, 0.25);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 .metric-card i {
     font-size: 1.8rem;
     margin-bottom: 12px;
-    color: #e0f7fa;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    color: #10b981;
+    filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.2));
 }
 
 .metric-card .label {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #64748b;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -334,14 +335,13 @@ body {
     border: 1px solid #ffb74d;
 }
 
-/* AI Recommendation Alert style */
 .ai-insight {
-    background: linear-gradient(135deg, rgba(255, 213, 79, 0.15), rgba(255, 236, 179, 0.2));
-    border: 1px solid rgba(255, 213, 79, 0.4);
-    border-left: 6px solid #ffca28;
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(253, 230, 138, 0.2));
+    border: 1px solid rgba(250, 204, 21, 0.4);
+    border-left: 6px solid #eab308;
     padding: 20px 25px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
@@ -367,20 +367,34 @@ body {
 }
 
 .ai-insight h4 {
-    color: #ffca28;
+    color: #ca8a04;
     margin: 0 0 12px 0;
     font-size: 1.2rem;
     display: flex;
     align-items: center;
     gap: 10px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: none;
 }
 
 .ai-insight p {
     margin: 0;
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #ffffff;
-    font-weight: 400;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    color: #475569;
+    font-weight: 500;
+    text-shadow: none;
+}
+
+/* Light Theme Override for Back Button in Weather */
+.weather-page-container .back-btn {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.weather-page-container .back-btn i {
+    color: #0ea5e9;
+}
+
+.weather-page-container .back-btn:hover {
+    color: #0ea5e9;
 }
