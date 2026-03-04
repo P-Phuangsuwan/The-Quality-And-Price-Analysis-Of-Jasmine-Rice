@@ -32,14 +32,9 @@
             <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav class="sidebar-nav">
-            <!-- <a href="../user/user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a> -->
             <a href="../../index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
-            <!-- <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a> -->
             <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
             <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
-            <!-- <a href="../user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a> -->
-            <!-- <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i>
-                ออกจากระบบ</a> -->
         </nav>
     </aside>
 
@@ -209,7 +204,7 @@
 
         async function fetchWeather(lat, lon) {
             try {
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&timezone=auto&forecast_days=1`;
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&minutely_15=temperature_2m,weather_code&timezone=auto&forecast_days=1`;
 
                 const response = await fetch(url);
                 const data = await response.json();
@@ -307,31 +302,40 @@
                 document.getElementById('aiInsightText').innerHTML = insight;
 
                 // --- UPDATE HOURLY ---
+                const minutely = data.minutely_15;
                 const hourlyContainer = document.getElementById('hourlyWeatherContainer');
                 hourlyContainer.innerHTML = '';
 
                 let count = 0;
-                for (let i = 0; i < hourly.time.length; i++) {
-                    const timeDate = new Date(hourly.time[i]);
-                    // Only show current and future hours, maximum 8 items
-                    if (timeDate.getHours() >= currentHour && count < 8) {
-                        const hourDetails = getWeatherDetails(hourly.weather_code[i]);
-                        const timeString = timeDate.getHours().toString().padStart(2, '0') + ':00';
+                const nowTime = new Date();
+                const startMins = nowTime.getMinutes() >= 30 ? 30 : 0;
+                const startTime = new Date(nowTime.getFullYear(), nowTime.getMonth(), nowTime.getDate(), nowTime.getHours(), startMins, 0).getTime();
 
-                        hourlyContainer.innerHTML += `
-                            <div class="hourly-item">
-                                <span class="time">${timeString}</span>
-                                <i class="fa-solid ${hourDetails.icon} icon-weather"></i>
-                                <span class="temp">${Math.round(hourly.temperature_2m[i])}°C</span>
-                            </div>
-                        `;
-                        count++;
+                if (minutely && minutely.time) {
+                    for (let i = 0; i < minutely.time.length; i++) {
+                        const timeDate = new Date(minutely.time[i]);
+                        const minutes = timeDate.getMinutes();
+
+                        // Only show current and future 30-min intervals, maximum 12 items
+                        if ((minutes === 0 || minutes === 30) && timeDate.getTime() >= startTime && count < 12) {
+                            const hourDetails = getWeatherDetails(minutely.weather_code[i]);
+                            const timeString = timeDate.getHours().toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
+
+                            hourlyContainer.innerHTML += `
+                                <div class="hourly-item">
+                                    <span class="time">${timeString}</span>
+                                    <i class="fa-solid ${hourDetails.icon} icon-weather"></i>
+                                    <span class="temp">${Math.round(minutely.temperature_2m[i])}°C</span>
+                                </div>
+                            `;
+                            count++;
+                        }
                     }
                 }
 
-                // Fill if less than 8 items (because it's near end of day)
-                if (count < 8) {
-                    for (let i = 0; i < (8 - count); i++) {
+                // Fill if less than 12 items (because it's near end of day)
+                if (count < 12) {
+                    for (let i = 0; i < (12 - count); i++) {
                         hourlyContainer.innerHTML += `
                             <div class="hourly-item" style="opacity: 0.5;">
                                 <span class="time">--:--</span>
