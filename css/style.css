@@ -214,13 +214,29 @@ body {
     color: var(--text-muted);
 }
 
-.trend.up {
-    color: var(--accent-green);
-    background: rgba(46, 204, 113, 0.1);
+.trend {
     padding: 4px 8px;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trend.up {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.trend.down {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.trend.neutral {
+    color: #cbd5e1;
+    background: rgba(203, 213, 225, 0.1);
 }
 
 .ai-recommendation {

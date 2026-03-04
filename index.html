@@ -372,19 +372,19 @@
             const iconObj = document.getElementById('dashRiceIcon');
             const diffObj = document.getElementById('dashRiceDiff');
 
+            // Reset inline styles if any exist
+            trendObj.style.color = '';
+
             if (priceDiffFromToday > 0) {
                 trendObj.className = 'trend up';
-                trendObj.style.color = '#10b981';
                 iconObj.className = 'fa-solid fa-arrow-trend-up';
                 diffObj.textContent = '+' + priceDiffFromToday.toLocaleString() + ' ฿ (คาดการณ์)';
             } else if (priceDiffFromToday < 0) {
                 trendObj.className = 'trend down';
-                trendObj.style.color = '#ef4444';
                 iconObj.className = 'fa-solid fa-arrow-trend-down';
                 diffObj.textContent = priceDiffFromToday.toLocaleString() + ' ฿ (คาดการณ์)';
             } else {
-                trendObj.className = 'trend';
-                trendObj.style.color = '#cbd5e1';
+                trendObj.className = 'trend neutral';
                 iconObj.className = 'fa-solid fa-minus';
                 diffObj.textContent = 'คงที่ (คาดการณ์)';
             }
