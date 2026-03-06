@@ -15,10 +15,16 @@
 - ระบบแนะนำการจัดการความเครียดของต้นข้าว
 
 # เครื่องมือที่ใช้สร้างเว็บ
+  # Frontend
 * HTML
 * CSS
 * Java Script
+  # Backend
 * Node.js
+* Render(https://render.com/)
+  # API
+* Open-Meteo(https://open-meteo.com/)
+* Google Ai Studio(https://aistudio.google.com/)
 
 # การติดตั้งและการใช้งาน (Setup & Installation)
 
