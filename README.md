@@ -28,10 +28,10 @@
 * Java Script
 ## Backend
 * Node.js
-* Render(https://render.com/)
+* Render (https://render.com/)
 ## API
-* Open-Meteo(https://open-meteo.com/)
-* Google Ai Studio(https://aistudio.google.com/)
+* Open-Meteo (https://open-meteo.com/)
+* Google Ai Studio (https://aistudio.google.com/)
 
 # การติดตั้งและการใช้งาน (Setup & Installation)
 
