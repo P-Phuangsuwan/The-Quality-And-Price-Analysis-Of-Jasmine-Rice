@@ -29,10 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 basePrice = 13800; // slightly lower
                 varietyNameTh = "ข้าว กข15";
                 break;
-            case 'thungkula_jasmine':
-                basePrice = 16000; // premium
-                varietyNameTh = "ข้าวหอมมะลิทุ่งกุลาร้องไห้";
-                break;
             case 'white_jasmine105':
             default:
                 basePrice = 14500;
